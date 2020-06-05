@@ -48,7 +48,7 @@ export const toogleTodoActionCreator = ({
   id: string;
   isComplete: boolean;
 }): ToogleTodoActionType => {
-  return { type: TOOGLE_TODO, payload: { id, isComplete: isComplete } };
+  return { type: TOOGLE_TODO, payload: { id, isComplete: !isComplete } };
 };
 
 interface DeleteTodoActionType {
@@ -79,4 +79,62 @@ export const selectTodoActionCreator = ({
     type: SELECT_TODO,
     payload: { id },
   };
+};
+
+//initial val
+const todosInitialState: Todo[] = [
+  {
+    id: uuid(),
+    desc: "Learn React",
+    isComplete: true,
+  },
+  {
+    id: uuid(),
+    desc: "Learn Redux",
+    isComplete: true,
+  },
+  {
+    id: uuid(),
+    desc: "Learn Redux-ToolKit",
+    isComplete: false,
+  },
+];
+
+//Reducer
+type TodoActionTypes =
+  | CreateTodoActionType
+  | EditTodoActionType
+  | ToogleTodoActionType
+  | DeleteTodoActionType;
+export const todosReducer = (
+  state: Todo[] = todosInitialState,
+  action: TodoActionTypes
+) => {
+  switch (action.type) {
+    case CREATE_TODO: {
+      const { payload } = action;
+      return [...state, payload];
+    }
+    case EDIT_TODO: {
+      const { payload } = action;
+      return state.map((todo) =>
+        todo.id === payload.id ? { ...todo, desc: payload } : todo
+      );
+    }
+    case TOOGLE_TODO: {
+      const { payload } = action;
+      return state.map((todo) =>
+        todo.id === payload.id
+          ? { ...todo, isComplete: payload.isComplete }
+          : todo
+      );
+    }
+    case DELETE_TODO: {
+      const { payload } = action;
+      return state.filter((todo) => todo.id !== payload.id);
+    }
+    default: {
+      return state;
+    }
+  }
 };
