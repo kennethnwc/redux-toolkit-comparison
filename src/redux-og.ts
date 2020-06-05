@@ -122,7 +122,7 @@ const todosReducer = (
     case EDIT_TODO: {
       const { payload } = action;
       return state.map((todo) =>
-        todo.id === payload.id ? { ...todo, desc: payload } : todo
+        todo.id === payload.id ? { ...todo, desc: payload.desc } : todo
       );
     }
     case TOOGLE_TODO: {
