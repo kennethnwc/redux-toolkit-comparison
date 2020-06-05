@@ -2,7 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
-import uuid from "uuid/v1";
+import { v1 as uuid } from "uuid";
 import { Todo } from "./type";
 
 //constants
@@ -52,7 +52,7 @@ export const toogleTodoActionCreator = ({
   id: string;
   isComplete: boolean;
 }): ToogleTodoActionType => {
-  return { type: TOOGLE_TODO, payload: { id, isComplete: !isComplete } };
+  return { type: TOOGLE_TODO, payload: { id, isComplete } };
 };
 
 interface DeleteTodoActionType {
