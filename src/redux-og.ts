@@ -1,5 +1,6 @@
 import uuid from "uuid";
 import { Todo } from "./type";
+import { combineReducers, createStore } from "redux";
 
 //constants
 const CREATE_TODO = "CREATE_TODO";
@@ -106,7 +107,7 @@ type TodoActionTypes =
   | EditTodoActionType
   | ToogleTodoActionType
   | DeleteTodoActionType;
-export const todosReducer = (
+const todosReducer = (
   state: Todo[] = todosInitialState,
   action: TodoActionTypes
 ) => {
@@ -174,3 +175,12 @@ const counterReducer = (state: number = 0, action: TodoActionTypes) => {
     }
   }
 };
+
+const reducers = combineReducers({
+  todos: todosReducer,
+  selectedTodo: selectedTodoReducer,
+  counter: counterReducer,
+});
+
+//Store
+export default createStore(reducers);
