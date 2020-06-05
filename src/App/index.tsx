@@ -7,13 +7,20 @@ import React, {
 } from "react";
 import { Todo, State } from "../type";
 import { useSelector, useDispatch } from "react-redux";
+// import {
+//   createTodoActionCreator,
+//   editTodoActionCreator,
+//   toogleTodoActionCreator,
+//   deleteTodoActionCreator,
+//   selectTodoActionCreator,
+// } from "../redux-og";
 import {
   createTodoActionCreator,
   editTodoActionCreator,
   toogleTodoActionCreator,
   deleteTodoActionCreator,
   selectTodoActionCreator,
-} from "../redux-og";
+} from "../redux-toolkit";
 import "./App.css";
 
 const App = function() {
