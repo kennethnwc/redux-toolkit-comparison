@@ -66,7 +66,7 @@ export const deleteTodoActionCreator = ({
   };
 };
 
-interface SelectTodoActionType {
+interface SelectedTodoActionType {
   type: typeof SELECT_TODO;
   payload: { id: string };
 }
@@ -74,7 +74,7 @@ export const selectTodoActionCreator = ({
   id,
 }: {
   id: string;
-}): SelectTodoActionType => {
+}): SelectedTodoActionType => {
   return {
     type: SELECT_TODO,
     payload: { id },
@@ -132,6 +132,42 @@ export const todosReducer = (
     case DELETE_TODO: {
       const { payload } = action;
       return state.filter((todo) => todo.id !== payload.id);
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+type SelectTodoActionTypes = SelectedTodoActionType;
+const selectedTodoReducer = (
+  state: string | null = null,
+  action: SelectTodoActionTypes
+) => {
+  switch (action.type) {
+    case SELECT_TODO: {
+      const { payload } = action;
+      return payload.id;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+const counterReducer = (state: number = 0, action: TodoActionTypes) => {
+  switch (action.type) {
+    case CREATE_TODO: {
+      return state + 1;
+    }
+    case TOOGLE_TODO: {
+      return state + 1;
+    }
+    case DELETE_TODO: {
+      return state + 1;
+    }
+    case EDIT_TODO: {
+      return state + 1;
     }
     default: {
       return state;
